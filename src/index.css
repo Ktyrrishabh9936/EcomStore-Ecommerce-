@@ -6,8 +6,28 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/* @media screen and (min-width:1700px){
+  html{
+    font-size: 30px;
+  }
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* @import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap'); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities{
+  .no-scrollbar::-webkit-scrollbar{
+    display: none;
+  }
+  .no-scrollbar{
+    scrollbar-width: none;
+  }
 }
