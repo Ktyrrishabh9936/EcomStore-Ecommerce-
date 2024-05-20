@@ -1,31 +1,34 @@
 import React, { useState } from 'react'
 import CustomInput from '../../CustomReactComponents/CustomInput';
-import { Add, BusinessOutlined, FavoriteBorder, HomeOutlined } from '@mui/icons-material';
+import { Add, BusinessOutlined, Close, FavoriteBorder, HomeOutlined } from '@mui/icons-material';
 import AddressSelector from './AddressSelector';
-
+import 'tailwindcss/colors'
+import colors from 'tailwindcss/colors';
+import { useSelector } from 'react-redux';
 export default function Delivery() {
-       let theme = 'purple';
-    const [DeliveryData,setDeliveryData] = useState({address:"",city:"",state:"",phone:"",zipCode:""});
+   const theme = useSelector((state)=>state.webReducer.Theme);
+   const [activeAdd,setactiveAdd] = useState(false);
+    const [DeliveryData,setDeliveryData] = useState({fullname:'',address:"",city:"",state:"",phone:"",zipCode:""});
     const handleChange=(e)=>{
         setDeliveryData({...DeliveryData,[e.target.name]:e.target.value});
     }
   return (
     <>
-        <div className={`w-full border-0 sm:border-2 border-${theme}-800 rounded-lg text-clamp-p`}>
-        <div className=" w-full   mx-auto flex flex-col  md:flex-row">
-                <div className=' w-full  md:w-[35%] mx-auto max-w-lg ' >
-
-                <AddressSelector/>
+        <div className='w-full  rounded-lg text-clamp-p p-3 sm:p-0 ' >
+        <div className=" w-full   mx-auto flex flex-col  md:flex-row relative h-[calc(100vh-40px)] ">
+                <div className=' w-full  md:w-[50%] mx-auto md:ml-auto max-w-lg  h-[80%]' >
+                <div className='  md:bg-none rounded-md mb-2 py-6 border-2 border-gray-300' style={{backgroundColor:colors[theme][50]}}>
+                        <img src="img/map.png" className=' h-20 sm:h-40 mx-auto' alt="" />
                 </div>
-                <div className={`w-full md:w-[65%] flex justify-center items-center bg-${theme}-400 `}>
-                <div className='min-w-[230px] max-w-90  w-[80%] lg:w-[60%] py-6 '>
-                <h1 className=' font-ChakraPetch text-clamp-h3 font-bold'>Delivery Address</h1>
-                <hr className="h-[2px] mx-auto rounded border-0 my-3 shadow-lg bg-gray-300"/>
-                
-                {/* <CustomInput type="text" label='Address' name="loc" onChange={(e)=>{setloc(e.target.value);
-                        document.getElementById("map").innerHTML = `<div style={{width: '100%'}}><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=100%&amp;hl=en&amp;q=1%20${loc.replace(" ","%20")}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.maps.ie/population/">Population Estimator map</a></iframe></div>`
-                        }} value={loc}/> */}
-                        <CustomInput label='Address' type='test' name='address' theme={theme} value={DeliveryData.address} onChange={handleChange}/>
+                <AddressSelector/>
+                <p className='p-2 rounded-sm text-white block sm:hidden text-center whitespace-nowrap mx-auto' onClick={()=>setactiveAdd(true)} style={{backgroundColor:colors[theme][600]}}> <Add/>Add new address</p>
+                </div>
+                <div className={`w-full  md:w-[50%] bg-slate-50 sm:bg-white flex justify-center ${activeAdd?"block translate-x-0":"hidden -translate-x-4"} absolute top-[0px] left-0  w-full h-fit bg-white-400 sm:static sm:block`} >
+                <div className='min-w-[230px] w-full sm:w-[80%] p-2 mx-auto '>
+                        <p className='block sm:hidden float-right' onClick={()=>setactiveAdd(false)}><Close/></p>
+                <h1 className=' font-ChakraPetch text-clamp-h3 font-bold my-2'>Delivery Address</h1>
+                        <CustomInput className="p-7" label='Full Name' type='text' name='fullname' theme={theme} value={DeliveryData.fullname} onChange={handleChange}/>
+                        <CustomInput className="p-7" label='Address' type='text' name='address' theme={theme} value={DeliveryData.address} onChange={handleChange}/>
                         <div className="flex gap-3">
                         <CustomInput label='City' type='text' name='city' theme={theme} value={DeliveryData.city} onChange={handleChange}/>
                         <CustomInput label='State' type='text' name='state' theme={theme} value={DeliveryData.state} onChange={handleChange}/>
@@ -40,7 +43,7 @@ export default function Delivery() {
                                         <span className='p-2 bg-white border-2 w-full text-center'><FavoriteBorder/> <p>Partner</p></span>
                                         <span className='p-2 bg-white border-2 w-full text-center'><Add/> <p>Other</p></span>
                                 </p>
-                        <button className={` bg-${theme}-700 p-4 mt-2 text-center text-white w-full rounded-xl text-lg`}>Save</button>
+                        <button className=' p-4 mt-2 text-center text-white w-full rounded-xl text-lg' style={{backgroundColor:colors[theme][600]}}>Save</button>
                         </div>
                 </div>
         </div>

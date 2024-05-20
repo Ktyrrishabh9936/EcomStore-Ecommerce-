@@ -6,16 +6,18 @@ import ViewProduct from './customer/pages/ViewProductPage';
 import SearchProductPage from './customer/pages/SearchProductPage';
 import ProductCart from './customer/pages/ProductCart';
 import PlaceOrder from './customer/pages/PlaceOrder';
+import SearchBar from './customer/pages/searchBarPage';
 
 function App() {
   return (
-    <div className=' overflow-hidden'>
+    <div className=' overflow-hidden bg-white'>
     <Router>
       <Routes>
         
         <Route path='/' element={<HomePage/>}/>
         <Route path='/viewProduct' element={<ViewProduct/>}/>
-        <Route path='/search' element={<SearchProductPage/>}/>
+        <Route path='/searcheditems' element={<SearchProductPage/>}/>
+        <Route path='/search' element={<SearchBar/>}/>
         <Route path='/cart' element={<ProductCart/>}/>
         <Route path='/placeorder' element={<PlaceOrder/>}/>
       </Routes>

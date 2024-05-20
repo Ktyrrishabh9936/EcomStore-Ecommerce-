@@ -1,7 +1,11 @@
 import React from "react";
 import { navigation } from "./navLinksData";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import { useSelector } from "react-redux";
+import colors from "tailwindcss/colors";
+import SearchBar from "../../pages/searchBarPage";
 export default function Navlinks({ toggleSideBar }) {
+  const theme = useSelector((state)=>state.webReducer.Theme);
   return (
     <div className="my-auto">
       <div className=" md:block hidden my-auto">
@@ -37,7 +41,7 @@ export default function Navlinks({ toggleSideBar }) {
       <div className="block md:hidden" onClick={toggleSideBar}>
         <MenuOpenIcon
           style={{
-            backgroundColor: "black",
+            backgroundColor: colors[theme][900],
             color: "white",
             fontSize: "40px",
             padding: "4px",

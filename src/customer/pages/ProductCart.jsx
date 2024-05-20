@@ -1,11 +1,6 @@
 import {
-  Add,
-  RemoveCircleOutline,
-  AddBoxOutlined,
-  AddBoxSharp,
   RemoveCircleSharp,
   AddCircleSharp,
-  HdrStrongOutlined,
 } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import React, { useState } from "react";

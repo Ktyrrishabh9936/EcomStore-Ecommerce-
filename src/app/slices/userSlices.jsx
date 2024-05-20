@@ -12,7 +12,7 @@ import { createSlice } from "@reduxjs/toolkit";
 }
 const initialState = {
         DeviceType:checkDevice(),
-        Theme:'purple'
+        Theme:'blue'
 }
 
  const webSlice = createSlice({

@@ -4,6 +4,7 @@ import { LocationOn, Login, Payment, ViewInAr} from '@mui/icons-material';
 import ProductCart from './ProductCart';
 import LoginPortal from '../components/placeOrder/Login';
 import Delivery from '../components/placeOrder/Delivery';
+import OrderSummary from '../components/placeOrder/orderSummary';
 export default function PlaceOrder() {
   const [activeStep, setActiveStep] = useState(0); 
     const handleNext = () => { 
@@ -96,7 +97,7 @@ export default function PlaceOrder() {
         </Step>
       </Stepper>
       <div className="flex justify-center">
-      <div className='w-full sm:w-[85%]'>
+      <div className='w-full lg:w-[85%]'>
       <StepPanel index={0}>
       <LoginPortal/>
       </StepPanel>
@@ -104,7 +105,7 @@ export default function PlaceOrder() {
         <Delivery/>
       </StepPanel>
       <StepPanel index={2}>
-      <ProductCart/>
+      <OrderSummary/>
       </StepPanel>
       <StepPanel index={3}>
         content for step 4

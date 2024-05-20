@@ -12,7 +12,7 @@ const MyInput = styled.input`
         border-radius:3px;
         width:100%;
         margin-top:${(props)=>props.active?'12px':'10px'};
-        padding:9px;
+        padding:11px 9px;
         &:focus{
                 --tw-ring-shadow:none;
                 border:2px solid #00dd22;
@@ -44,11 +44,10 @@ const MyInput = styled.input`
         export default function Custominput({label,type,value,theme, ...rest}){
                 return(
                         <>
-                        <div className="relative w-full min-w-min mt-[17px] pb-4 h-[57px]">
+                        <div className="relative w-full min-w-min mt-[17px] pb-2 ">
 
                         <MyInput type = {type} id={label} value={value}  active={(value.length !== 0)} theme={theme} {...rest}/>
                         <MyLabel className=' whitespace-nowrap' htmlFor={label}  active={value.length !== 0} theme={theme}>{label}</MyLabel>
-                        <p>{value}</p>
                         </div>
                         </>
                 )

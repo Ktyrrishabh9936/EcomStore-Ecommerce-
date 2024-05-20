@@ -17,14 +17,23 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ArrowBack, ArrowCircleRightSharp, ArrowForward } from '@mui/icons-material';
 import zIndex from '@mui/material/styles/zIndex';
-
+import colors from 'tailwindcss/colors';
 const handleDragStart = (e) => e.preventDefault();
-const Mainitems = MainCarauselData.map((item)=><div className="p-5  sm:p-0 bg-purple-50"> <img className="rounded-md sm:rounded-none cursor-pointer w-full" src={item.image} onDragStart={handleDragStart} role="presentation" /> </div>  )
+const Mainitems = MainCarauselData.map((item)=><div className="  h-full px-2 sm:px-3  "> <img className="rounded-md  cursor-pointer h-full w-full" src={item.image} onDragStart={handleDragStart} role="presentation" /> </div>  )
 export const MainCarausel = () => {
+  const theme = useSelector((state)=>state.webReducer.Theme);
+  const responsive = {
+    0:{items:1},
+    1024:{items:2},
+};
   return (
-    
-    <AliceCarousel mouseTracking items={Mainitems} disableButtonsControls disableDotsControls /* autoPlay autoPlayInterval={1800} */infinite/>
-    
+    <div className=" p-2 sm:p-3 " style={{backgroundColor:colors[theme][50]}}>
+    <AliceCarousel mouseTracking items={Mainitems} responsive={responsive} disableButtonsControls disableDotsControls  
+    // autoPlay autoPlayInterval={1800} 
+    infinite 
+    // paddingRight={500}
+    />
+</div>
   );
 }
 
@@ -32,30 +41,36 @@ export const MainCarausel = () => {
 
 const categoryCarauselItem = Products.map((item)=>{
   return ( <>
-  <div class="w-full lg:w-[90%] p-2   lg:bg-white bg-purple-50 lg  dark:bg-gray-800 dark:border-gray-700 lg:p-4">
-      <div class="flex flex-col items-center ">
-          <img class="h-[clamp(100,5vw,250)] rounded-full lg:rounded-none mb-3 " src="/img/e-Logo.png" alt="Bonnie image"/>
-          <span class=" text-gray-500 dark:text-gray-400 text-center text-clamp-h6">Visual Designer</span>
+  <div class="w-full lg:w-[90%] p-1    lg:bg-white  dark:bg-gray-800 dark:border-gray-700 lg:p-4">
+      <div class="flex flex-col items-center  ">
+        <div className=' h-[clamp(100,5vw,250)] w-[clamp(100,5vw,250)] rounded-full lg:rounded-none overflow-hidden '>
+          <img class="  rounded-full" src="/img/e-Logo.png" alt="Bonnie image"/>
+          </div>
+          <span class=" text-gray-500 dark:text-gray-400 text-center text-clamp-h6 hidden md:block">Visual Designer</span>
       </div>
   </div>
   </>)
 })
 export const CategorySectionCarausel = ()=>{
   const devicewidth = window.innerWidth;
+  const theme = useSelector((state)=>state.webReducer.Theme);
+
   const responsive = {
-    0: { items: 4 },
-    568: { items: 4 },
-    827: { items: 5 },
-    1109:{items: 4},
-    1377: { items: 7 },
-    1600:{items:6},
+    0: { items: 5 },
+    568: { items: 6 },
+    827: { items: 7 },
+    1109:{items: 7},
+    1377: { items: 8},
+    1600:{items:8},
 };
- const slidePrev = ()=>{ return <Button  sx={{zIndex:'1', height:'100%', transform:'rotate(180deg)', borderTopLeftRadius:'40%',borderBottomLeftRadius:'40%',overflow:'hidden',position:'absolute', top:'0',left:'-40px'}} > <ArrowCircleRightOutlinedIcon sx={{fontSize:'40px'}}/> </Button>}
+ const slidePrev = ()=>{ return <Button  sx={{zIndex:'1', height:'100%', transform:'rotate(180deg)', borderTopLeftRadius:'40%',borderBottomLeftRadius:'40%',overflow:'hidden',position:'absolute', top:'0',left:'-55px'}} > <ArrowCircleRightOutlinedIcon sx={{fontSize:'40px'}}/> </Button>}
  const slideNext = ()=>{return <Button sx={{zIndex:'1', height:'100%',right:'9px',borderTopLeftRadius:'40%',borderBottomLeftRadius:'40%',overflow:'hidden',position:'absolute', top:'0',right:'-40px'}}> <ArrowCircleRightOutlinedIcon sx={{fontSize:'40px'}}/> </Button> }
 
   return (
     <>
-    <div className='carauselLayer relative w-full h-full p-3 flex mx-auto   border border-gray-200 rounded-lg shadow bg-purple-50'>
+    <div className='carauselLayer relative w-full h-full p-3 flex mx-auto   border border-gray-200 rounded-lg shadow ' 
+    style={{backgroundColor:colors[theme][50]}}
+    >
       <div className="w-[84vw] mx-auto ">
     <AliceCarousel  mouseTracking items={categoryCarauselItem} infinite disableButtonsControls={devicewidth < 1024}       responsive={responsive} renderPrevButton={slidePrev}  renderNextButton={slideNext} keyboardNavigation={true}  disableDotsControls/>
     </div>
@@ -68,20 +83,14 @@ export const CategorySectionCarausel = ()=>{
 
 
 const FirstCarauselItem = Products.map((item)=>{
-  return <div className="box p-2 w-[clamp(100,calc(30%/2rem+10px),300)]  m-auto ">
-    <div className='rounded-lg h-[250px] overflow-hidden'>
+  return <div className="box p-2  m-auto ">
+    <div className='rounded-lg h-[clamp(10rem,15vw,24rem)] overflow-hidden'>
     <img className='object-cover object-top w-full h-full' src={item.image.main} alt="" />
-    </div>
-    <div className="p-2 ">
-      <h1 className='font-sans font-medium text-clamp-p'>{item.title}</h1>
-      <Star fontSize='small'/>
-      <p className=' text-clamp-h5 text-green-800' >&#8377;{item.price}</p>
     </div>
     </div>
 })
 export const FirstSectionCarausel = ()=>{
-  const deviceType = useSelector((state)=>state.webReducer.DeviceType);
-
+  const devicewidth = window.innerWidth;
   const responsive = {
     0: { items: 1,numToSlide:1 },
     422: { items: 2,numToSlide:2 },
@@ -95,9 +104,9 @@ export const FirstSectionCarausel = ()=>{
 
   return (
     <>
-    <div className='carauselLayer relative w-full h-full p-3 flex'>
+    <div className='carauselLayer relative w-full h-full p-1 sm:p-3 flex'>
 
-    <AliceCarousel mouseTracking items={FirstCarauselItem}  disableDotsControls  responsive={responsive}   renderPrevButton={slidePrev} renderNextButton={slideNext} keyboardNavigation={true} disableButtonsControls={deviceType==='Mobile'} />
+    <AliceCarousel mouseTracking items={FirstCarauselItem}  disableDotsControls  responsive={responsive}   renderPrevButton={slidePrev} renderNextButton={slideNext} keyboardNavigation={true} disableButtonsControls={devicewidth < 1024}  />
     </div>
     </>
 
@@ -109,9 +118,9 @@ export const FirstSectionCarausel = ()=>{
 
 
 const SecondCarauselItem = Products.map((item,index)=>{
-  return <div className="box px-1  sm:px-2 w-full  m-auto " key={index} >
-    <div className='bg-white'>
-    <div className='rounded-lg h-[clamp(10rem,15vw,24rem)] overflow-hidden'>
+  return <div className="box p-1 sm:p-2 w-full  " key={index} >
+    <div className='bg-white rounded-t-lg rounded-b-md'>
+    <div className=' h-[clamp(10rem,16vw,24rem)] '>
     <img className='object-cover object-top w-full h-full' src={item.image.main} alt="" />
     </div>
     <div className="p-1 sm:p-2 leading-5 sm:leading-6 md:leading-7">
@@ -123,8 +132,7 @@ const SecondCarauselItem = Products.map((item,index)=>{
     </div>
 })
 export const SecondSectionCarausel = ()=>{
-  const devicewidth = window.innerWidth;
-
+  const deviceType =  useSelector((state)=>state.webReducer.DeviceType);
   const responsive = {
     0: { items: 2},
     568: { items: 3 },
@@ -139,10 +147,10 @@ export const SecondSectionCarausel = ()=>{
 
   return (
     <>
-    <div className='carauselLayer relative w-full h-full p-0 md:p-3 flex bg-gray-100 pl-2'>
+    <div className='carauselLayer relative w-full h-full p-0 md:p-3 flex bg-gray-100 pl-2 gap-2'>
 
     <AliceCarousel mouseTracking items={SecondCarauselItem} controlsStrategy='responsive'   responsive={responsive} key="carousel" infinite renderPrevButton={slidePrev}  renderNextButton={slideNext}  
-    disableButtonsControls={devicewidth < 1024} disableDotsControls  />
+    disableButtonsControls={deviceType==='Mobile'||deviceType==='tablet'} disableDotsControls  />
     {/* <button onClick={()=>{setActiveIndex(activeIndex-2)}}><ArrowRight sx={{zIndex:'1', height:'20%',width:'50px', transform:'rotate(180deg)', overflow:'hidden',position:'absolute', top:'40%',left:'10px',fontSize:'20px',backgroundColor:' rgb(126 34 206/0.8)'}} /></button>
     <button style={{zIndex:'1', height:'20%',width:'50px', overflow:'hidden',position:'absolute', top:'40%',right:'10px',fontSize:'20px',backgroundColor:' rgb(126 34 206/0.8)'}} onClick={()=>{setActiveIndex(activeIndex+2);console.log(activeIndex)}}><ArrowRight /></button> */}
 
@@ -236,11 +244,11 @@ export const ReactSlickCarousel = ()=>{
 export const  Multicarausel = ()=> {
   const ThirdCarauselItem = Products.map((item,index)=>{
     return <div className=" box p-1 md:p-2 w-full m-auto rounded-md " key={index} >
-      <div className='bg-white border border-spacing-5  '>
+      <div className='bg-white border border-spacing-5 rounded-lg '>
       <div className=' h-[clamp(10rem,15vw,24rem)] overflow-hidden '>
       <img className='object-cover object-top w-full h-full ' src={item.image.main} alt="" />
       </div>
-      <div className="p-1 sm:p-2 bg-purple-200  leading-5 sm:leading-6 md:leading-7">
+      <div className="p-1 sm:p-2   leading-5 sm:leading-6 md:leading-7 bg-[#F1F1F1]">
       <h1 className='font-sans font-medium text-clamp-p line-clamp-2 leading-4'>{item.title}</h1>
         <Star color='purple' rating={2.3}/>
         <p className=' text-clamp-h5 text-green-800' >&#8377;{item.price}</p>

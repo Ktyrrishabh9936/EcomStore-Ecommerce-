@@ -4,7 +4,7 @@ import Footer from '../components/footer/footer';
 import Navbar from '../components/navgation/navigaton';
 import { useSelector } from 'react-redux';
 export default function HomePage() {
-  const deviceType = useSelector((state)=>state.webReducer.DeviceType);
+
 
   return (
         <div className=''>
