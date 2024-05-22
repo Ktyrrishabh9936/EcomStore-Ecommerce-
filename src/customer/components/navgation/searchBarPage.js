@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { SearchOffSharp, SearchSharp } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
-const SearchBar = () => {
+const SearchBar = ({...rest}) => {
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
@@ -31,36 +33,40 @@ const SearchBar = () => {
     }
   };
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     let storedQueries = Cookies.get('searchQueries');
     storedQueries = storedQueries ? JSON.parse(storedQueries) : [];
     if (!storedQueries.includes(query)) {
       storedQueries.push(query);
       Cookies.set('searchQueries', JSON.stringify(storedQueries));
     }
+    navigate('/searcheditems')
   };
 
   return (
-    <div className=" flex w-full max-w-md mx-auto mt-10 ">
+    <form className="relative flex w-full max-w-md mx-auto">
       <input
         type="text"
-        className="w-full p-2 border border-gray-300 rounded focus:outline-none h-min"
         value={query}
         onChange={handleChange}
-        placeholder="Search..."
+        placeholder="Search products"
+        {...rest}
+        onFocus={handleChange}
       />
       <button
+        type='submit'
         onClick={handleSearch}
-        className=" relative -left-10 p-2 text-blue-500  hover:bg-blue-600 h-min"
+        className=" absolute right-2 p-2 text-blue-500 rounded-r-full  h-min"
       >
         <SearchSharp/>
       </button>
       {query && suggestions.length > 0 && (
-        <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1">
+        <ul className="absolute top-10 z-10 w-full bg-gray-50  border border-gray-300 rounded mt-1">
           {suggestions.map((suggestion, index) => (
             <li
               key={index}
-              className="p-2 hover:bg-gray-200 cursor-pointer"
+              className="py-2 px-5 hover:bg-gray-200 cursor-pointer line-clamp-1"
               onClick={() => setQuery(suggestion)}
             >
               {suggestion}
@@ -68,7 +74,7 @@ const SearchBar = () => {
           ))}
         </ul>
       )}
-    </div>
+    </form>
   );
 };
 

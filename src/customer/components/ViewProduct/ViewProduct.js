@@ -9,6 +9,7 @@ import { LinearProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import Reviews from "./ReviewsSection";
 import ProductDetails from "./ProductDetails";
+import { Link } from "react-router-dom";
 
 const CustomDot = ({ onClick, active, index }) => {
   const [Images, setImages] = useState([
@@ -155,9 +156,11 @@ export default function ViewProduct() {
 
           <p className="mb-5">
             <div className=" flex pt-3 gap-3 ">
+    <Link to='/placeorder'>
               <button className="px-[clamp(1rem,1.3vw,1.5rem)] py-[clamp(0.3rem,0.5vw,0.8rem)] uppercase font-Poppins bg-purple-500 font-bold rounded-md active:opacity-70 text-clamp-h6 text-white">
                 Buy Now
               </button>
+        </Link>
               <button className="px-[clamp(1rem,1.3vw,1.5rem)] py-[clamp(0.5rem,0.7vw,0.8rem)]  uppercase font-Poppins bg-white font-bold rounded-md active:opacity-70 border-2 border-purple-500 text-clamp-h6 ">
                 Add To Cart
               </button>
@@ -165,7 +168,7 @@ export default function ViewProduct() {
           </p>
         </div>
       </div>
-      <ProductDetails/>
+      {/* <ProductDetails/> */}
       <Rating raters={486455} rating={5} reviews={20} />
     </div>
   );

@@ -18,6 +18,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { ArrowBack, ArrowCircleRightSharp, ArrowForward } from '@mui/icons-material';
 import zIndex from '@mui/material/styles/zIndex';
 import colors from 'tailwindcss/colors';
+import { Link } from 'react-router-dom';
 const handleDragStart = (e) => e.preventDefault();
 const Mainitems = MainCarauselData.map((item)=><div className="  h-full px-2 sm:px-3  "> <img className="rounded-md  cursor-pointer h-full w-full" src={item.image} onDragStart={handleDragStart} role="presentation" /> </div>  )
 export const MainCarausel = () => {
@@ -39,22 +40,23 @@ export const MainCarausel = () => {
 
 
 
-const categoryCarauselItem = Products.map((item)=>{
-  return ( <>
-  <div class="w-full lg:w-[90%] p-1    lg:bg-white  dark:bg-gray-800 dark:border-gray-700 lg:p-4">
-      <div class="flex flex-col items-center  ">
-        <div className=' h-[clamp(100,5vw,250)] w-[clamp(100,5vw,250)] rounded-full lg:rounded-none overflow-hidden '>
-          <img class="  rounded-full" src="/img/e-Logo.png" alt="Bonnie image"/>
-          </div>
-          <span class=" text-gray-500 dark:text-gray-400 text-center text-clamp-h6 hidden md:block">Visual Designer</span>
-      </div>
-  </div>
-  </>)
-})
 export const CategorySectionCarausel = ()=>{
+  const categoryCarauselItem = Products.map((item)=>{
+    return ( <>
+    <div class="w-full lg:w-[90%] p-1    lg:bg-white  dark:bg-gray-800 dark:border-gray-700 lg:p-4">
+      <Link to='/viewProduct'>
+        <div class="flex flex-col items-center  ">
+          <div className=' h-[clamp(100,5vw,250)] w-[clamp(100,5vw,250)] rounded-full lg:rounded-none overflow-hidden '>
+            <img class="  rounded-full" src="/img/e-Logo.png" alt="Bonnie image"/>
+            </div>
+            <span class=" text-gray-500 dark:text-gray-400 text-center text-clamp-h6 hidden md:block">Visual Designer</span>
+        </div>
+        </Link>
+    </div>
+    </>)
+  })
   const devicewidth = window.innerWidth;
   const theme = useSelector((state)=>state.webReducer.Theme);
-
   const responsive = {
     0: { items: 5 },
     568: { items: 6 },
@@ -72,7 +74,7 @@ export const CategorySectionCarausel = ()=>{
     style={{backgroundColor:colors[theme][50]}}
     >
       <div className="w-[84vw] mx-auto ">
-    <AliceCarousel  mouseTracking items={categoryCarauselItem} infinite disableButtonsControls={devicewidth < 1024}       responsive={responsive} renderPrevButton={slidePrev}  renderNextButton={slideNext} keyboardNavigation={true}  disableDotsControls/>
+    <AliceCarousel  mouseTracking items={categoryCarauselItem} infinite disableButtonsControls={devicewidth < 768}       responsive={responsive} renderPrevButton={slidePrev}  renderNextButton={slideNext} keyboardNavigation={true}  disableDotsControls/>
     </div>
     </div>
     </>
@@ -83,11 +85,13 @@ export const CategorySectionCarausel = ()=>{
 
 
 const FirstCarauselItem = Products.map((item)=>{
-  return <div className="box p-2  m-auto ">
-    <div className='rounded-lg h-[clamp(10rem,15vw,24rem)] overflow-hidden'>
+  return <Link to='/viewProduct'>
+  <div className="box p-2  m-auto ">
+    <div className='rounded-lg h-[clamp(13rem,15vw,24rem)] overflow-hidden'>
     <img className='object-cover object-top w-full h-full' src={item.image.main} alt="" />
     </div>
     </div>
+    </Link>
 })
 export const FirstSectionCarausel = ()=>{
   const devicewidth = window.innerWidth;
@@ -99,14 +103,14 @@ export const FirstSectionCarausel = ()=>{
     1377: { items: 5,numToSlide:5},
     1600:{items:6,numToSlide:6},
 };
- const slidePrev = ()=>{  return  <Button  variant='contained'  sx={{zIndex:10, height:'70px',transform:'rotate(180deg)', borderTopLeftRadius:'40%',borderBottomLeftRadius:'40%',overflow:'hidden',position:'absolute', top:'40%',left:'0px',backgroundColor:' rgb(126 34 206/0.8)',color:'white'}} > <ArrowCircleRightOutlinedIcon sx={{fontSize:'40px'}}/> </Button>}
- const slideNext = ()=>{return <Button variant='contained' sx={{zIndex:1, height:'70px',right:'9px',borderTopLeftRadius:'40%',borderBottomLeftRadius:'40%',overflow:'hidden',position:'absolute', top:'40%',backgroundColor:' rgb(126 34 206/0.8)',color:'white'}}> <ArrowCircleRightOutlinedIcon sx={{fontSize:'40px'}}/> </Button> }
+ const slidePrev = ()=>{  return  <Button  variant='contained'  sx={{padding:'clamp(0.6rem,1vw,2rem)',minWidth:'0px',zIndex:10,transform:'rotate(180deg)', borderTopLeftRadius:'40%',borderBottomLeftRadius:'40%',overflow:'hidden',position:'absolute', top:'35%',left:'9px',backgroundColor:' rgb(126 34 206/0.8)',color:'white'}} > <ArrowCircleRightOutlinedIcon fontSize='large'/> </Button>}
+ const slideNext = ()=>{return <Button variant='contained' sx={{padding:'clamp(0.6rem,1vw,2rem)',minWidth:'0px',zIndex:1,right:'0px',borderTopLeftRadius:'40%',borderBottomLeftRadius:'40%',overflow:'hidden',position:'absolute', top:'35%',backgroundColor:' rgb(126 34 206/0.8)',color:'white'}}> <ArrowCircleRightOutlinedIcon fontSize='large' /> </Button> }
 
   return (
     <>
     <div className='carauselLayer relative w-full h-full p-1 sm:p-3 flex'>
 
-    <AliceCarousel mouseTracking items={FirstCarauselItem}  disableDotsControls  responsive={responsive}   renderPrevButton={slidePrev} renderNextButton={slideNext} keyboardNavigation={true} disableButtonsControls={devicewidth < 1024}  />
+    <AliceCarousel mouseTracking items={FirstCarauselItem}  disableDotsControls  responsive={responsive}   renderPrevButton={slidePrev} renderNextButton={slideNext} keyboardNavigation={true} disableButtonsControls={devicewidth < 768}  paddingRight={50}/>
     </div>
     </>
 
@@ -119,6 +123,7 @@ export const FirstSectionCarausel = ()=>{
 
 const SecondCarauselItem = Products.map((item,index)=>{
   return <div className="box p-1 sm:p-2 w-full  " key={index} >
+    <Link to='/viewProduct'>
     <div className='bg-white rounded-t-lg rounded-b-md'>
     <div className=' h-[clamp(10rem,16vw,24rem)] '>
     <img className='object-cover object-top w-full h-full' src={item.image.main} alt="" />
@@ -129,6 +134,7 @@ const SecondCarauselItem = Products.map((item,index)=>{
       <p className=' text-clamp-h5 text-green-800' >&#8377;{item.price}</p>
     </div>
     </div>
+    </Link>
     </div>
 })
 export const SecondSectionCarausel = ()=>{
@@ -163,14 +169,14 @@ export const SecondSectionCarausel = ()=>{
 export const ReactSlick1 = ()=>{
   function PrevButton({style,onClick}){
     return(
-      <Button  sx={{...style,height:'60px',backgroundColor:'purple',":hover":{backgroundColor:'purple'},position:'absolute',top:'50%',left:'-25px',zIndex:2, padding:'0px'}} variant='contained' onClick={onClick}>
+      <Button  sx={{...style,padding:'clamp(0.6rem,1vw,2rem)',backgroundColor:'purple',minWidth:'0px',":hover":{backgroundColor:'purple'},position:'absolute',top:'45%',left:'-25px',zIndex:1}} variant='contained' onClick={onClick}>
       <ArrowBack className=' text-white'/>
       </Button>
     )
   }
   function NextButton({style,onClick}){
     return(
-      <Button   sx={{...style,height:'60px',backgroundColor:'purple',":hover":{backgroundColor:'purple'},position:'absolute',top:'50%',right:'-20px',}} variant='contained' onClick={onClick} size='small'>
+      <Button   sx={{...style,padding:'clamp(0.6rem,1vw,2rem)',minWidth:'0px',backgroundColor:'purple',":hover":{backgroundColor:'purple'},position:'absolute',top:'45%',right:'-20px',}} variant='contained' onClick={onClick} size='small'>
       {/* <div  style={{...style,display:'block', background:'green',borderRadius:'50%' ,height:'50px', width:'50px',position:'absolute',left:'4px',top:'-20px'}}  /> */}
       <ArrowForward className=' text-white'/>
       </Button>
@@ -202,14 +208,14 @@ export const ReactSlick1 = ()=>{
 export const ReactSlickCarousel = ()=>{
   function PrevArrow({style,onClick}){
     return(
-      <Button   sx={{...style,height:'70px',width:'10px',background:'skyblue',backgroundColor:'purple',":hover":{backgroundColor:'purple'},position:'absolute',top:'40%',left:'-25px',zIndex:2,borderRadius:'50%'}} variant='contained' onClick={onClick}>
+      <Button  variant='outlined' sx={{...style,padding:'clamp(0.6rem,1vw,2rem)',minWidth:'0px',background:'skyblue',backgroundColor:'purple',":hover":{backgroundColor:'purple'},position:'absolute',top:'40%',left:'-20px',zIndex:2,borderRadius:'50%'}}  onClick={onClick} >
       <ArrowBack className=' text-white'/>
       </Button>
     )
   }
   function NextArrow({style,onClick}){
     return(
-      <Button   sx={{...style,height:'70px',width:'10px',background:'skyblue',backgroundColor:'purple',":hover":{backgroundColor:'purple'},position:'absolute',top:'40%',right:'-20px',borderRadius:'50%'}} variant='contained' onClick={onClick}>
+      <Button   sx={{...style,padding:'clamp(0.6rem,1vw,2rem)',minWidth:'0px',background:'skyblue',backgroundColor:'purple',":hover":{backgroundColor:'purple'},position:'absolute',top:'40%',right:'-20px',borderRadius:'50%'}} variant='outlined' onClick={onClick}>
       {/* <div  style={{...style,display:'block', background:'green',borderRadius:'50%' ,height:'50px', width:'50px',position:'absolute',left:'4px',top:'-20px'}}  /> */}
       <ArrowForward className=' text-white'/>
       </Button>
@@ -221,6 +227,8 @@ export const ReactSlickCarousel = ()=>{
     slidesToShow:7,slidesToScroll:7,
     prevArrow:<PrevArrow />,
     nextArrow:<NextArrow  />,
+    // centerPadding:'40px',
+    // centerMode:true,
     responsive:[
         {breakpoint:1600,settings:{slidesToShow:6,slidesToScroll:6}},
         {breakpoint:1377,settings:{slidesToShow:5,slidesToScroll:5}},
@@ -232,7 +240,7 @@ export const ReactSlickCarousel = ()=>{
   }
   return(<div className=''>
   <div className='md:m-10 '>
-  <Slider {...settings}  >
+  <Slider {...settings}   >
     {SecondCarauselItem}
   </Slider>
   </div>

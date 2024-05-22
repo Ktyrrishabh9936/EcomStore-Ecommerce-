@@ -3,7 +3,9 @@ import { navigation } from "./navLinksData";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { useSelector } from "react-redux";
 import colors from "tailwindcss/colors";
-import SearchBar from "../../pages/searchBarPage";
+import { Person,SearchOutlined,ShoppingCartCheckout } from '@mui/icons-material';
+import { Link } from "react-router-dom";
+
 export default function Navlinks({ toggleSideBar }) {
   const theme = useSelector((state)=>state.webReducer.Theme);
   return (
@@ -37,7 +39,20 @@ export default function Navlinks({ toggleSideBar }) {
       </div>
 
       {/* Mobile Navigation  */}
+      <div className="flex">
+        <span className=" block md:hidden h-min">
+      <div className="p-2 text-white flex items-center gap-1 ">
 
+          <Link to='/search' className="px-1" >
+            <SearchOutlined/>
+          </Link>
+          <Link to='/cart'>
+          <div className="relative px-2 before:absolute before:-top-2 before:left-[23px] before:content-['10']  before:px-1 before:rounded-full before:text-xs before:bg-white before:text-black" >
+            <ShoppingCartCheckout />
+          </div>
+          </Link>
+        </div>
+          </span>
       <div className="block md:hidden" onClick={toggleSideBar}>
         <MenuOpenIcon
           style={{
@@ -48,6 +63,7 @@ export default function Navlinks({ toggleSideBar }) {
             borderRadius: "5px",
           }}
         />
+      </div>
       </div>
     </div>
   );
