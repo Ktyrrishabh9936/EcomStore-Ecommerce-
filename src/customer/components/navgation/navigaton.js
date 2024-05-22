@@ -67,8 +67,8 @@ export default function Navbar() {
             <div className="bg-white text-violet-400">
               {category.sections.map((section)=>{
                 return <div className="">
-                  <h3> {section.name}</h3>
-                  <ul>
+                  <h3 className='text-black ml-3'> {section.name}</h3>
+                  <ul className='ml-7'>
                     {section.items.map((item)=>{
                       return <li>{item.name}</li>
                     })}
