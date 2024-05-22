@@ -1,4 +1,4 @@
-import { FormControlLabel,Checkbox, Grid, Button } from '@mui/material'
+import { FormControlLabel,Checkbox, Grid } from '@mui/material'
 import React from 'react'
 import { Products } from '../carausel/ItemData'
 import Star from '../ViewProduct/Star'
@@ -127,54 +127,6 @@ export default function Filter() {
             ]
           },
           {
-            name:"Color",
-            options:[
-              {value:"red" ,label:"Red"},
-              {value:"blue" ,label:"Blue"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"purple"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"Green"},
-            ]
-          },
-          {
-            name:"Color",
-            options:[
-              {value:"red" ,label:"Red"},
-              {value:"blue" ,label:"Blue"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"purple"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"Green"},
-            ]
-          },
-          {
-            name:"Color",
-            options:[
-              {value:"red" ,label:"Red"},
-              {value:"blue" ,label:"Blue"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"purple"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"Green"},
-            ]
-          },
-          {
-            name:"Color",
-            options:[
-              {value:"red" ,label:"Red"},
-              {value:"blue" ,label:"Blue"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"purple"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"Green"},
-              {value:"green" ,label:"Green"},
-            ]
-          },
-          {
             name:"Brand",
             options:[
               {value:"boat" ,label:"Boat"},
@@ -185,6 +137,7 @@ export default function Filter() {
         ]
         
         const [expanded, setExpanded] = React.useState('panel1');
+        const [filterPage, setfilterPage] = React.useState(false);
 
         const handleChange = (panel) => (event, newExpanded) => {
           setExpanded(newExpanded ? panel : false);
@@ -205,8 +158,8 @@ export default function Filter() {
         </Grid>
           )  })
   return (
-    <div className='flex justify-around  h-[calc(100%-80px)] p-3 relative'>
-      <div className=" flex flex-col w-full md:w-[30%]  min-w-min   font-Poppins absolute md:static top-0  h-full " >
+    <div className='flex justify-around  h-[calc(100%-60px)] p-3 relative'>
+      <div className={` ${filterPage?"block":"hidden"}  md:block w-full md:w-[30%]  min-w-min  md   font-Poppins absolute md:static top-0  h-full `} >
           <h1 className=' font-medium font-RobotoSlab text-clamp-h4 text-center pb-1 bg-white'>Filter Product</h1>
            
         <div className="  bg-white w-full overflow-x-hidden overflow-y-scroll w-thin p-2    h-[calc(100%-100px)] ">
@@ -234,10 +187,10 @@ export default function Filter() {
     </div>
 
     <p className='flex gap-2 justify-center w-full  mx-auto text-lg py-2  bg-gray-200'>
-        <button className="px-[clamp(1rem,1.3vw,1.5rem)] py-[clamp(0.3rem,0.5vw,0.8rem)] uppercase font-Poppins bg-purple-500 font-bold rounded-md active:opacity-70 text-clamp-h6 text-white">
+        <button className="w-full py-[clamp(0.3rem,0.5vw,0.8rem)] uppercase font-Poppins bg-purple-500 font-bold rounded-md active:opacity-70 text-clamp-h6 text-white"  onClick={()=>setfilterPage(false)}>
                 Apply
               </button>
-              <button className="px-[clamp(1rem,1.3vw,1.5rem)] py-[clamp(0.5rem,0.7vw,0.8rem)]  uppercase font-Poppins bg-white font-bold rounded-md active:opacity-70 border-2 border-purple-500 text-clamp-h6 ">
+              <button className="w-full py-[clamp(0.5rem,0.7vw,0.8rem)]  uppercase font-Poppins bg-white font-bold rounded-md active:opacity-70 border-2 border-purple-500 text-clamp-h6 " onClick={()=>setfilterPage(false)}>
                Cancel
               </button>
         </p>
@@ -245,13 +198,12 @@ export default function Filter() {
       <div className=" w-full p-3 px-3 lg:px-10 md:py-5 overflow-x-hidden overflow-y-scroll ">  
       <div className="w-full flex flex-col-reverse md:flex-row gap-2 mb-2 ">
         <p className=' flex gap-2 w-full border-none font-Poppins text-[clamp(0.8rem,1.1vw,1.2rem)] rounded-full overflow-x-scroll overflow-y-hidden no-scrollbar h-min my-auto p-2'>
-          <em className='px-3 py-1 rounded-full bg-blue-200  h-min min-w-max'>All <Cancel/></em>
           <em className='px-3 py-1  rounded-full bg-blue-200  h-min min-w-max'>Blue <Cancel/></em>
-          <em className='px-3 py-1  rounded-full bg-blue-200  h-min min-w-max'>Blue <Cancel/></em>
-          <em className='px-3 py-1  rounded-full bg-blue-200  h-min min-w-max'>Blue <Cancel/></em>
+          <em className='px-3 py-1  rounded-full bg-blue-200  h-min min-w-max'>Boat <Cancel/></em>
+          <em className='px-3 py-1  rounded-full bg-blue-200  h-min min-w-max'>XL <Cancel/></em>
         </p>
         <p className='flex gap-2 w-full md:w-max text-lg'>
-        <button className=' text-gray-600 md:hidden block w-full  px-7 py-3 border-2 border-grey-700 rounded-md font-bold m-auto '  ><FilterAlt  fontSize='large'/> Filter</button>
+        <button className=' text-gray-600 md:hidden block w-full  px-7 py-3 border-2 border-grey-700 rounded-md font-bold m-auto '  onClick={()=>setfilterPage(true)} ><FilterAlt  fontSize='large'/> Filter</button>
         <button  className=' text-gray-600 w-full w-100 px-7 py-2 border-2 border-grey-700 rounded-md  md:w-max md:al font-bold '  ><Sort fontSize='large'/> Sort By</button>
         </p>
       </div>
